@@ -1,0 +1,14 @@
+{
+  "name": "LlH20 Universal API Dashboard",
+  "short_name": "LlH20",
+  "description": "BYOK AI + Action API dashboard — Storm Chrome edition",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d0d0f",
+  "theme_color": "#c8d8e8",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
