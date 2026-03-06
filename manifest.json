@@ -1,0 +1,25 @@
+{
+  "name": "LazloH Universal API Dashboard",
+  "short_name": "LazloH",
+  "description": "Universal AI + API Dashboard powered by LazloH v1.5",
+  "start_url": "/lazloh20/",
+  "scope": "/lazloh20/",
+  "display": "standalone",
+  "background_color": "#0d0d0f",
+  "theme_color": "#0d0d0f",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
