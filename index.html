@@ -500,10 +500,10 @@
 </div>
 
 <script>
-  // Keys stored in sessionStorage — cleared automatically when tab/browser closes
-  const getKeys = () => JSON.parse(sessionStorage.getItem('lazloh_keys') || '{}');
-  const setKeys = (k) => sessionStorage.setItem('lazloh_keys', JSON.stringify(k));
-  if (!sessionStorage.getItem('lazloh_keys')) setKeys({});
+  // Keys stored in localStorage — cleared automatically when tab/browser closes
+  const getKeys = () => JSON.parse(localStorage.getItem('lazloh_keys') || '{}');
+  const setKeys = (k) => localStorage.setItem('lazloh_keys', JSON.stringify(k));
+  if (!localStorage.getItem('lazloh_keys')) setKeys({});
   let backendConnected = false;
 
   // Model selection state: { provider, modelId }
@@ -554,7 +554,7 @@
 
   function clearAllKeys() {
     if (!confirm('Clear all saved API keys? This cannot be undone.')) return;
-    sessionStorage.removeItem('lazloh_keys');
+    localStorage.removeItem('lazloh_keys');
     // Reset all badge UI
     document.querySelectorAll('.badge').forEach(b => {
       if (b.textContent === 'Active') b.textContent = 'Not Set';
@@ -668,6 +668,20 @@
 
   function escapeHtml(t) {
     return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  
+  // Rate limiter - max 20 requests per minute
+  const requestTimestamps = [];
+  function isRateLimited() {
+    const now = Date.now();
+    // Remove timestamps older than 1 minute
+    while (requestTimestamps.length && requestTimestamps[0] < now - 60000) {
+      requestTimestamps.shift();
+    }
+    if (requestTimestamps.length >= 20) return true;
+    requestTimestamps.push(now);
+    return false;
   }
 
   async function sendQuery() {
