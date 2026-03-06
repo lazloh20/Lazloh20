@@ -1,12 +1,10 @@
 const express = require('express');
-const cors = require('cors');
 const fetch = require('node-fetch');
 const app = express();
 const cors = require('cors');
-app.use(cors({ origin: 'https://lazloh20.github.io' }));
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
+app.use(cors({ origin: 'https://lazloh20.github.io' }))
 app.use(express.json());
 
 app.get('/', (req, res) => res.json({ status: 'ok', app: 'LlH20 v1.5 Backend' }));
