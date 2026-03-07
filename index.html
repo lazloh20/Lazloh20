@@ -549,10 +549,12 @@
 </div>
 
 <script>
-  // Keys stored in localStorage — cleared automatically when tab/browser closes
-  const getKeys = () => JSON.parse(localStorage.getItem('lazloh_keys') || '{}');
-  const setKeys = (k) => localStorage.setItem('lazloh_keys', JSON.stringify(k));
-  if (!localStorage.getItem('lazloh_keys')) setKeys({});
+  // Keys stored in localStorage, persist across browser restarts
+const getKeys = () => JSON.parse(localStorage.getItem('lazloh_keys') || '{}');
+const setKeys = (k) => localStorage.setItem('lazloh_keys', JSON.stringify(k));
+
+if (!localStorage.getItem('lazloh_keys')) {
+  setKeys({});
   let backendConnected = false;
 
   // Model selection state: { provider, modelId }
