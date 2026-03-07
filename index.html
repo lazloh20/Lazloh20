@@ -584,26 +584,7 @@ if (!localStorage.getItem('lazloh_keys')) {
       updateActiveModelLabel();
     }
   }
-async function testBackend() {
-  const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
-  if (!url) {
-    alert('Enter your Railway backend URL first.');
-    return;
-  }
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    if (data.status) {
-      backendConnected = true;
-      document.getElementById('backendStatus').textContent = 'Connected: ' + url;
-      document.getElementById('backendStatus').className = 'backend-status connected';
-      if (window.onBackendConnected) window.onBackendConnected(url);
-    }
-  } catch (e) {
-    document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
-    document.getElementById('backendStatus').className = 'backend-status';
-  }
-}
+
 
   function saveKey(name) {
     const input = document.getElementById('key-' + name);
@@ -649,23 +630,7 @@ async function testBackend() {
     label.textContent = (modelLabels[modelId] || modelId) + ' ✓';
   }
 
-  async function testBackend() {
-    const url = document.getElementById('backendUrl').value.trim().replace(/\/$/, '');
-    if (!url) { alert('Enter your Railway backend URL first.'); return; }
-    try {
-      const res = await fetch(url + '/');
-      const data = await res.json();
-      if (data.status) {
-        backendConnected = true;
-        document.getElementById('backendStatus').textContent = '🟢 Connected: ' + url;
-        document.getElementById('backendStatus').className = 'backend-status connected';
-        if (window._onBackendConnected) window._onBackendConnected(url);
-      }
-    } catch(e) {
-      document.getElementById('backendStatus').textContent = '🔴 Connection failed — check your URL';
-      document.getElementById('backendStatus').className = 'backend-status';
-    }
-  }
+  
 
   function detectRoute(q) {
     q = q.toLowerCase();
@@ -839,26 +804,7 @@ async function testBackend() {
   });
 
   // Backend test function – must be in this script
-  async function testBackend() {
-    const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
-    if (!url) {
-      alert('Enter your Railway backend URL first.');
-      return;
-    }
-    try {
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.status) {
-        backendConnected = true;
-        document.getElementById('backendStatus').textContent = 'Connected: ' + url;
-        document.getElementById('backendStatus').className = 'backend-status connected';
-        if (window.onBackendConnected) window.onBackendConnected(url);
-      }
-    } catch (e) {
-      document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
-      document.getElementById('backendStatus').className = 'backend-status';
-    }
-  }
+  
   </script>
 
   <script>
@@ -890,26 +836,7 @@ async function testBackend() {
 </body>
 </html>
 
-async function testBackend() {
-  const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
-  if (!url) {
-    alert('Enter your Railway backend URL first.');
-    return;
-  }
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    if (data.status) {
-      backendConnected = true;
-      document.getElementById('backendStatus').textContent = 'Connected: ' + url;
-      document.getElementById('backendStatus').className = 'backend-status connected';
-      if (window.onBackendConnected) window.onBackendConnected(url);
-    }
-  } catch (e) {
-    document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
-    document.getElementById('backendStatus').className = 'backend-status';
-  }
-}
+
   </script>
 
 
@@ -938,6 +865,28 @@ async function testBackend() {
           .catch(err => console.log('SW registration failed:', err));
       });
     }
+      async function testBackend() {
+    const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
+    if (!url) {
+      alert('Enter your Railway backend URL first.');
+      return;
+    }
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.status) {
+        backendConnected = true;
+        document.getElementById('backendStatus').textContent = 'Connected: ' + url;
+        document.getElementById('backendStatus').className = 'backend-status connected';
+        if (window.onBackendConnected) window.onBackendConnected(url);
+      }
+    } catch (e) {
+      document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
+      document.getElementById('backendStatus').className = 'backend-status';
+    }
+  }
+</script>
+
   </script>
 </body>
 </html>
