@@ -571,6 +571,41 @@ if (!localStorage.getItem('lazloh_keys')) {
     'claude-sonnet-4-5': 'Claude Sonnet',
     'claude-opus-4-5': 'Claude Opus'
   };
+  function updateActiveModelLabel() {
+    const label = document.getElementById('activeModelLabel');
+    if (!activeProvider || !getKeys()[activeProvider]) {
+      label.textContent = 'None — add a key to get started';
+      return;
+    }
+    const modelId = selectedModels[activeProvider];
+    label.textContent = modelLabels[modelId] || modelId;
+  }
+
+  function saveKey(name) {
+    const input = document.getElementById('key-' + name);
+    const card = document.getElementById('card-' + name);
+    const badge = document.getElementById('badge-' + name);
+    if (!input) return;
+
+    if (input.value.trim()) {
+      const keys = getKeys();
+      keys[name] = input.value.trim();
+      setKeys(keys);
+
+      if (badge) badge.textContent = 'Active';
+      if (card) card.classList.add('active');
+
+      // Clear visible value (but keep in localStorage)
+      input.value = ''.padEnd(16, '•');
+
+      // Auto‑set active provider if none
+      if (!activeProvider && (name === 'perplexity' || name === 'claude')) {
+        activeProvider = name;
+      }
+
+      updateActiveModelLabel();
+    }
+  }
 
   function selectModel(provider, modelId, el) {
     // Update pill UI for this provider's group
