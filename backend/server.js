@@ -220,4 +220,3 @@ app.post('/telegram-webhook', async (req, res) => {
 
 app.listen(PORT, () => console.log(`LlH20 backend running on port ${PORT}`));
 
-app.listen(PORT, () => console.log(`LlH20 backend running on port ${PORT}`));
