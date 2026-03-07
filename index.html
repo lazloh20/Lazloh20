@@ -836,6 +836,26 @@ async function testBackend() {
   });
 
   </script>
+async function testBackend() {
+  const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
+  if (!url) {
+    alert('Enter your Railway backend URL first.');
+    return;
+  }
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.status) {
+      backendConnected = true;
+      document.getElementById('backendStatus').textContent = 'Connected: ' + url;
+      document.getElementById('backendStatus').className = 'backend-status connected';
+      if (window.onBackendConnected) window.onBackendConnected(url);
+    }
+  } catch (e) {
+    document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
+    document.getElementById('backendStatus').className = 'backend-status';
+  }
+}
 
   <script>
     // Affiliate link obfuscation: once backend connected, route through /r/ redirect endpoint
