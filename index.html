@@ -801,7 +801,7 @@ async function testBackend() {
     document.getElementById('sendBtn').disabled = false;
   }
 
-  // Collapsible API cards
+    // Collapsible API cards
   function toggleCard(cardId) {
     const body = document.querySelector('#' + cardId + ' .api-card-body');
     const btn = document.querySelector('#' + cardId + ' .api-card-toggle');
@@ -816,6 +816,7 @@ async function testBackend() {
       const header = card.querySelector('.api-card-header');
       if (!header) return;
       const cardId = card.id;
+
       // Wrap header in toggle button
       const toggle = document.createElement('button');
       toggle.className = 'api-card-toggle';
@@ -823,6 +824,7 @@ async function testBackend() {
       toggle.innerHTML = header.innerHTML + '<span class="toggle-arrow">▼</span>';
       header.innerHTML = '';
       header.appendChild(toggle);
+
       // Wrap remaining content in collapsible body
       const body = document.createElement('div');
       body.className = 'api-card-body';
@@ -830,10 +832,64 @@ async function testBackend() {
         body.appendChild(card.children[1]);
       }
       card.appendChild(body);
+
       // Open if already active
       if (card.classList.contains('active')) body.classList.add('open');
     });
   });
+
+  // Backend test function – must be in this script
+  async function testBackend() {
+    const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
+    if (!url) {
+      alert('Enter your Railway backend URL first.');
+      return;
+    }
+    try {
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.status) {
+        backendConnected = true;
+        document.getElementById('backendStatus').textContent = 'Connected: ' + url;
+        document.getElementById('backendStatus').className = 'backend-status connected';
+        if (window.onBackendConnected) window.onBackendConnected(url);
+      }
+    } catch (e) {
+      document.getElementById('backendStatus').textContent = 'Connection failed, check your URL';
+      document.getElementById('backendStatus').className = 'backend-status';
+    }
+  }
+  </script>
+
+  <script>
+    // Affiliate link obfuscation: once backend connected, route through /r/ redirect endpoint
+    // This hides your actual affiliate URLs from HTML inspection
+    function obfuscateAffiliateLinks(backendUrl) {
+      const links = {
+        'aff-shopify': backendUrl + '/r/shopify',
+        'aff-notion':  backendUrl + '/r/notion'
+      };
+      Object.entries(links).forEach(([id, url]) => {
+        const el = document.getElementById(id);
+        if (el) el.href = url;
+      });
+    }
+    // Called after successful backend connection test
+    window.onBackendConnected = obfuscateAffiliateLinks;
+  </script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('LazloH SW registered:', reg.scope))
+          .catch(err => console.log('SW registration failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>
+
 async function testBackend() {
   const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
   if (!url) {
