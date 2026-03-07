@@ -834,8 +834,6 @@ async function testBackend() {
       if (card.classList.contains('active')) body.classList.add('open');
     });
   });
-
-  </script>
 async function testBackend() {
   const url = document.getElementById('backendUrl').value.trim().replace(/\/+$/, '');
   if (!url) {
@@ -856,6 +854,8 @@ async function testBackend() {
     document.getElementById('backendStatus').className = 'backend-status';
   }
 }
+  </script>
+
 
   <script>
     // Affiliate link obfuscation: once backend connected, route through /r/ redirect endpoint
